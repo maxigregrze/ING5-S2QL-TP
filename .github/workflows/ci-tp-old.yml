@@ -1,0 +1,23 @@
+name: Tests JUnit CI (.TP-old)
+
+on:
+    push:
+        branches: [ main ]
+    pull_request:
+        branches: [ main ]
+    workflow_dispatch:
+
+jobs:
+    tests-tp-old:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: .TP-old
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-java@v4
+              with:
+                distribution: 'temurin'
+                java-version: '17'
+            - name: Run JUnit tests (.TP-old)
+              run: mvn --batch-mode test
