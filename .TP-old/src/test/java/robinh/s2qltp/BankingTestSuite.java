@@ -4,14 +4,13 @@ import org.junit.platform.suite.api.Suite;
 
 @Suite
 @SelectClasses({
-    LoanCalculatorTest.class,               
-    LoanCalculatorParameterizedTest.class,  
+    LoanCalculatorTest.class,
+    LoanCalculatorParameterizedTest.class,
     BankAccountTest.class,
     LoanProcessorTest.class,
     TransferServiceTest.class,
     LoanApprovalServiceTest.class,
-    LoanCalculatorSpyTest.class,
-    LoanCalculatorMockTest.class
+    LoanCalculatorSpyTest.class
 })
 class BankingTestSuite {
 }

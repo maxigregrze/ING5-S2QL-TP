@@ -1,13 +1,24 @@
 package robinh.s2qltp;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 class BankAccountTest {
+
+    @Mock
+    private AuditLogger logger;
+
+    private BankAccount newAccount(double initialBalance) {
+        return new BankAccount("test-account", initialBalance, logger);
+    }
 
     @Test
     void depositDoitAugmenterLeSolde() {
-        // Arrange
-        BankAccount account = new BankAccount();
+        BankAccount account = newAccount(0);
 
         // Act
         account.deposit(100);
@@ -19,8 +30,7 @@ class BankAccountTest {
 
     @Test
     void deuxDepositsSuccessifsDoiventCumulerLeSolde() {
-        // Arrange
-        BankAccount account = new BankAccount();
+        BankAccount account = newAccount(0);
 
         // Act
         account.deposit(100);
@@ -33,8 +43,7 @@ class BankAccountTest {
 
     @Test
     void depositMontantNulDoitLeverException() {
-        // Arrange
-        BankAccount account = new BankAccount();
+        BankAccount account = newAccount(0);
 
         // Act + Assert
         assertThrows(IllegalArgumentException.class,
@@ -44,8 +53,7 @@ class BankAccountTest {
 
     @Test
     void depositMontantNegatifDoitLeverException() {
-        // Arrange
-        BankAccount account = new BankAccount();
+        BankAccount account = newAccount(0);
 
         // Act + Assert
         assertThrows(IllegalArgumentException.class,
@@ -55,8 +63,7 @@ class BankAccountTest {
 
     @Test
     void withdrawDoitReduireLeSolde() {
-        // Arrange
-        BankAccount account = new BankAccount();
+        BankAccount account = newAccount(0);
         account.deposit(200);
 
         // Act
@@ -69,8 +76,7 @@ class BankAccountTest {
 
     @Test
     void withdrawEgalAuSoldeDoitMettreLeCompteAZero() {
-        // Arrange
-        BankAccount account = new BankAccount();
+        BankAccount account = newAccount(0);
         account.deposit(100);
 
         // Act
@@ -83,20 +89,18 @@ class BankAccountTest {
 
     @Test
     void withdrawSuperieurAuSoldeDoitLeverException() {
-        // Arrange
-        BankAccount account = new BankAccount();
+        BankAccount account = newAccount(0);
         account.deposit(100);
 
         // Act + Assert
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalStateException.class,
                 () -> account.withdraw(200),
-                "Retirer plus que le solde disponible doit lever IllegalArgumentException");
+                "Retirer plus que le solde disponible doit lever IllegalStateException");
     }
 
     @Test
     void withdrawMontantNulDoitLeverException() {
-        // Arrange
-        BankAccount account = new BankAccount();
+        BankAccount account = newAccount(0);
         account.deposit(100);
 
         // Act + Assert
@@ -107,8 +111,7 @@ class BankAccountTest {
 
     @Test
     void withdrawMontantNegatifDoitLeverException() {
-        // Arrange
-        BankAccount account = new BankAccount();
+        BankAccount account = newAccount(0);
         account.deposit(100);
 
         // Act + Assert
@@ -119,12 +122,11 @@ class BankAccountTest {
 
     @Test
     void withdrawSurCompteVideDoitLeverException() {
-        // Arrange
-        BankAccount account = new BankAccount();
+        BankAccount account = newAccount(0);
 
         // Act + Assert
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalStateException.class,
                 () -> account.withdraw(10),
-                "Retirer d'un compte vide doit lever IllegalArgumentException");
+                "Retirer d'un compte vide doit lever IllegalStateException");
     }
 }

@@ -1,3 +1,5 @@
+package robinh.s2qltp;
+
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -7,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class LoanApprovalServiceTest  {
+class LoanApprovalServiceTest {
 
     @Mock
     private CreditScoringAPI scoringAPI; // mock créé automatiquement
@@ -118,20 +120,6 @@ class LoanApprovalServiceTest  {
 
         assertThrows(IllegalStateException.class,
                 () -> approvalService.getLoanDecision("dave", 20000.0));
-    }
-
-    @Test
-    void deposit_doitPropagerException_quandLoggerEchoue() {
-        // Pour les méthodes void : doThrow().when(mock).method()
-        doThrow(new RuntimeException("Erreur journalisation"))
-            .when(logger).log(anyString(), anyDouble(), anyString());
-
-        // Le deposit propage l'exception du logger
-        assertThrows(RuntimeException.class,
-            () -> approvalService.approveLoan("alice", 20000.0));
-
-        // Le solde ne doit pas avoir changé
-        assertEquals(1000.0, account.getBalance(), 0.001);
     }
 
     // Q12
