@@ -22,4 +22,21 @@ public class LoanCalculator {
 
         return (capital * tauxMensuel) / (1 - Math.pow(1 + tauxMensuel, -nbMois));
     }
+
+    public double getInterestRate() {
+        return 0.035; 
+    }
+
+    public double calculateMonthlyPayment(double capital, int months) {
+        if (capital <= 0) throw new IllegalArgumentException("Capital invalide");
+        if (months <= 0)  throw new IllegalArgumentException("Durée invalide");
+
+        double annualRate = getInterestRate();
+        double monthlyRate = annualRate / 12;
+
+        if (monthlyRate == 0) {
+            return capital / months;
+        }
+        return (capital * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
+    }
 }
