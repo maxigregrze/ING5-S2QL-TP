@@ -54,10 +54,9 @@ class BankAccountMockTest {
     account.deposit(300.0);
     account.withdraw(100.0);
 
-    // Vérifier que le dépôt est journalisé AVANT le retrait
     InOrder inOrder = inOrder(logger);
-    inOrder.verify(logger).log("WITHDRAW", 100.0, "ACC-001");
     inOrder.verify(logger).log("DEPOSIT",  300.0, "ACC-001");
+    inOrder.verify(logger).log("WITHDRAW", 100.0, "ACC-001");
     }
 
     @Test
