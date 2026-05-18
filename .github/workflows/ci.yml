@@ -1,10 +1,7 @@
 name: Tests JUnit CI
 
+# Déclenché manuellement pour éviter de dupliquer `mvn verify` avec quality.yml
 on:
-    push:
-        branches: [ main ]
-    pull_request:
-        branches: [ main ]
     workflow_dispatch:
 jobs:
     tests:

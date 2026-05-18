@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+    "-//Checkstyle//DTD SuppressionFilter//EN"
+    "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<suppressions>
+    <suppress checks="MagicNumber"
+              files=".*Test\.java$"/>
+
+    <suppress checks="MissingJavadocMethod"
+              files=".*Test\.java$"/>
+
+    <suppress checks="MissingJavadocType"
+              files=".*Test\.java$"/>
+
+    <suppress checks="JavadocMethod"
+              files=".*Test\.java$"/>
+
+    <suppress checks="LineLength"
+              files=".*Generated.*\.java$"/>
+
+    <!-- Pourcentages de remise explicites (codes promo métier) -->
+    <suppress checks="MagicNumber"
+              files="ShoppingCart\.java"/>
+</suppressions>
